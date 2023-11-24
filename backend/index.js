@@ -12,12 +12,15 @@ const app = express();
 connectDB();
 
 // middlewares
-app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
+app.use(morgan("dev"));
 
 // PORT
 const PORT = process.env.PORT || 5000;
+
+// all routes
+app.use("/api/v1/auth", require("./routes/authRoutes"));
 
 // default route
 app.get("/", (req, res) => {
