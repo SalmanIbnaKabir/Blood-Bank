@@ -22,10 +22,14 @@ const registerController = async (req, res) => {
     //rest data
     const user = new userModel(req.body);
     await user.save();
+
+    const userInfo = user.toObject();
+    delete userInfo.password;
+
     return res.status(201).send({
       success: true,
       message: "User Registered Successfully",
-      user,
+      userInfo,
     });
   } catch (error) {
     console.log(error);
@@ -68,11 +72,13 @@ const loginController = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
+    const userInfo = user.toObject();
+    delete userInfo.password;
     return res.status(200).send({
       success: true,
       message: "Login Successfully",
       token,
-      user,
+      userInfo,
     });
   } catch (error) {
     console.log(error);
@@ -88,10 +94,12 @@ const loginController = async (req, res) => {
 const currentUserController = async (req, res) => {
   try {
     const user = await userModel.findOne({ _id: req.body.userId });
+    const userInfo = user.toObject();
+    delete userInfo.password;
     return res.status(200).send({
       success: true,
       message: "User Fetched Successfully",
-      user,
+      userInfo,
     });
   } catch (error) {
     console.log(error);
