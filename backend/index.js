@@ -11,8 +11,14 @@ const app = express();
 // mongodb connection
 connectDB();
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+};
+
 // middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan("dev"));
 
@@ -22,6 +28,8 @@ const PORT = process.env.PORT || 5000;
 // all routes
 app.use("/api/v1/auth", require("./routes/authRoutes"));
 app.use("/api/v1/inventory", require("./routes/inventoryRoutes"));
+app.use("/api/v1/analytics", require("./routes/analyticsRoutes"));
+app.use("/api/v1/admin", require("./routes/adminRoutes"));
 
 // default route
 app.get("/", (req, res) => {

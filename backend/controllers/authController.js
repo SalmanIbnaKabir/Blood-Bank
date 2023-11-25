@@ -29,7 +29,7 @@ const registerController = async (req, res) => {
     return res.status(201).send({
       success: true,
       message: "User Registered Successfully",
-      userInfo,
+      user: userInfo,
     });
   } catch (error) {
     console.log(error);
@@ -78,7 +78,7 @@ const loginController = async (req, res) => {
       success: true,
       message: "Login Successfully",
       token,
-      userInfo,
+      user: userInfo,
     });
   } catch (error) {
     console.log(error);
@@ -99,7 +99,7 @@ const currentUserController = async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "User Fetched Successfully",
-      userInfo,
+      user: userInfo,
     });
   } catch (error) {
     console.log(error);
