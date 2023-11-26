@@ -26,7 +26,7 @@ const Header = () => {
             <li className="nav-item mx-3">
               <p className="nav-link">
                 <BiUserCircle /> Welcome{" "}
-                {user?.name || user?.hospitalName || user?.organisationName}
+                {user?.name || user?.hospitalName || user?.organizationName}
                 &nbsp;
                 <span className="badge bg-secondary">{user?.role}</span>
               </p>

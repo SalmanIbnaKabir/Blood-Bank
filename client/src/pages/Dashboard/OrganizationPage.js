@@ -35,7 +35,7 @@ const OrganizationPage = () => {
   useEffect(() => {
     getOrg();
   }, [user]);
-
+  // console.log(data);
   return (
     <Layout>
       <table className="table ">
@@ -51,7 +51,9 @@ const OrganizationPage = () => {
         <tbody>
           {data?.map((record) => (
             <tr key={record._id}>
-              <td>{record.organizationName}</td>
+              <td>
+                {record.organizationName || record.name || record.hospitalName}
+              </td>
               <td>{record.email}</td>
               <td>{record.phone}</td>
               <td>{record.address}</td>

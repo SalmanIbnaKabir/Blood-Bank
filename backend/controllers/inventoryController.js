@@ -6,16 +6,29 @@ const userModel = require("../models/userModel");
 const createInventoryController = async (req, res) => {
   try {
     const { email } = req.body;
+    console.log(req.body);
     //validation
     const user = await userModel.findOne({ email });
     if (!user) {
-      throw new Error("User Not Found");
+      // throw new Error("User Not Found");
+      return res.status(200).send({
+        success: true,
+        message: "User Not Found",
+      });
     }
-    // if (inventoryType === "in" && user.role !== "donar") {
-    //   throw new Error("Not a donar account");
+    // if (req.body.inventoryType === "in" && user.role !== "donar") {
+    //   // throw new Error("Not a donar account");
+    //   return res.status(201).send({
+    //     success: true,
+    //     message: "Not a donar account",
+    //   });
     // }
-    // if (inventoryType === "out" && user.role !== "hospital") {
-    //   throw new Error("Not a hospital");
+    // if (req.body.inventoryType === "out" && user.role !== "hospital") {
+    //   // throw new Error("Not a hospital");
+    //   return res.status(201).send({
+    //     success: true,
+    //     message: "Not a hospital",
+    //   });
     // }
 
     if (req.body.inventoryType == "out") {
@@ -226,7 +239,7 @@ const getOrganizationController = async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "Org Data Fetched Successfully",
-      organizations: organizations,
+      organizations,
     });
   } catch (error) {
     console.log(error);

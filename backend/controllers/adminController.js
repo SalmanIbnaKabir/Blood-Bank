@@ -5,7 +5,8 @@ const getDonarsListController = async (req, res) => {
   try {
     const donarData = await userModel
       .find({ role: "donar" })
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .select("-password");
 
     return res.status(200).send({
       success: true,
@@ -27,8 +28,8 @@ const getHospitalListController = async (req, res) => {
   try {
     const hospitalData = await userModel
       .find({ role: "hospital" })
-      .sort({ createdAt: -1 });
-
+      .sort({ createdAt: -1 })
+      .select("-password");
     return res.status(200).send({
       success: true,
       totalCount: hospitalData.length,
@@ -49,8 +50,8 @@ const getOrgListController = async (req, res) => {
   try {
     const orgData = await userModel
       .find({ role: "organization" })
-      .sort({ createdAt: -1 });
-
+      .sort({ createdAt: -1 })
+      .select("-password");
     return res.status(200).send({
       success: true,
       totalCount: orgData.length,

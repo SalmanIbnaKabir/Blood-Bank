@@ -7,9 +7,9 @@ const Analytics = () => {
   const [data, setData] = useState([]);
   const [inventoryData, setInventoryData] = useState([]);
   const colors = [
-    "#884A39",
-    "#C38154",
-    "#FFC26F",
+    "#0766AD",
+    "#3876BF",
+    "#192655",
     "#4F709C",
     "#4942E4",
     "#0079FF",
@@ -29,7 +29,7 @@ const Analytics = () => {
     }
   };
 
-  //lifrecycle method
+  //lifecycle method
   useEffect(() => {
     getBloodGroupData();
   }, []);
@@ -53,7 +53,7 @@ const Analytics = () => {
   return (
     <>
       <Header />
-      <div className="d-flex flex-row flex-wrap">
+      <div className="d-flex flex-row flex-wrap justify-content-center">
         {data?.map((record, i) => (
           <div
             className="card m-2 p-1"
@@ -64,15 +64,15 @@ const Analytics = () => {
               <h1 className="card-title bg-light text-dark text-center mb-3">
                 {record.bloodGroup}
               </h1>
-              <p className="card-text">
+              <p className="card-text text-white ">
                 Total In : <b>{record.totalIn}</b> (ML)
               </p>
-              <p className="card-text">
+              <p className="card-text text-white">
                 Total Out : <b>{record.totalOut}</b> (ML)
               </p>
             </div>
             <div className="card-footer text-light bg-dark text-center">
-              Total Available : <b>{record.availabeBlood}</b> (ML)
+              Total Available : <b>{record.availableBlood}</b> (ML)
             </div>
           </div>
         ))}

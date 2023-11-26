@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../components/shared/Layout/Layout";
 import moment from "moment";
 import API from "../../services/API";
+import { toast } from "react-toastify";
 
 const OrgList = () => {
   const [data, setData] = useState([]);
@@ -26,12 +27,12 @@ const OrgList = () => {
   const handelDelete = async (id) => {
     try {
       let answer = window.prompt(
-        "Are You SUre Want To Delete This Organisation",
+        "Are You SUre Want To Delete This Organization",
         "Sure"
       );
       if (!answer) return;
       const { data } = await API.delete(`/admin/delete-donar/${id}`);
-      alert(data?.message);
+      toast.error(data?.message);
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -53,7 +54,7 @@ const OrgList = () => {
         <tbody>
           {data?.map((record) => (
             <tr key={record._id}>
-              <td>{record.organisationName}</td>
+              <td>{record.organizationName}</td>
               <td>{record.email}</td>
               <td>{record.phone}</td>
               <td>{moment(record.createdAt).format("DD/MM/YYYY hh:mm A")}</td>

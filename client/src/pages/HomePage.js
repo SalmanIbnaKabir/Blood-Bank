@@ -6,6 +6,7 @@ import Layout from "../components/shared/Layout/Layout";
 import Modal from "../components/shared/modal/Modal";
 import API from "../services/API";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 const HomePage = () => {
   const { loading, error, user } = useSelector((state) => state.auth);
@@ -28,10 +29,16 @@ const HomePage = () => {
   useEffect(() => {
     getBloodRecords();
   }, []);
+
+  useEffect(() => {
+    if (user?.role === "admin") {
+      navigate("/admin");
+    }
+  }, [user, navigate]);
+
   return (
     <Layout>
-      {user?.role === "admin" && navigate("/admin")}
-      {error && <span>{alert(error)}</span>}
+      {error && <span>{toast.error(error)}</span>}
       {loading ? (
         <Spinner />
       ) : (

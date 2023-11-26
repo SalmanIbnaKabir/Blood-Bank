@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import InputType from "./../Form/InputType";
 import API from "./../../../services/API";
+import { toast } from "react-toastify";
 
 const Modal = () => {
   const [inventoryType, setInventoryType] = useState("in");
@@ -13,21 +14,21 @@ const Modal = () => {
   const handleModalSubmit = async () => {
     try {
       if (!bloodGroup || !quantity) {
-        return alert("Please Provide All Fields");
+        return toast.error("Please Provide All Fields");
       }
       const { data } = await API.post("/inventory/create-inventory", {
         email,
-        organisation: user?._id,
+        organization: user?._id,
         inventoryType,
         bloodGroup,
         quantity,
       });
       if (data?.success) {
-        alert("New Record Created");
+        toast.success(data?.message);
         window.location.reload();
       }
     } catch (error) {
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
       console.log(error);
       window.location.reload();
     }
@@ -60,7 +61,7 @@ const Modal = () => {
             </div>
             <div className="modal-body">
               <div className="d-flex mb-3">
-                Blood Type: &nbsp;
+                Inventory Type: &nbsp;
                 <div className="form-check ms-3">
                   <input
                     type="radio"
@@ -88,12 +89,12 @@ const Modal = () => {
                 </div>
               </div>
               <select
-                className="form-select"
+                className="form-select mb-2"
                 aria-label="Default select example"
                 onChange={(e) => setBloodGroup(e.target.value)}
               >
                 <option defaultValue={"Open this select menu"}>
-                  Open this select menu
+                  Select Blood Group
                 </option>
                 <option value={"O+"}>O+</option>
                 <option value={"O-"}>O-</option>
@@ -112,7 +113,7 @@ const Modal = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <InputType
-                labelText={"Quanitity (ML)"}
+                labelText={"Quantity (ML)"}
                 labelFor={"quantity"}
                 inputType={"Number"}
                 value={quantity}
